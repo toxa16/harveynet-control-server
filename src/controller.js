@@ -3,11 +3,18 @@ function renderUsers(users) {
   console.log(usernames);
 }
 
+function logMachines(machines) {
+  const machineIds = [];
+  machines.forEach(x => machineIds.push(x.id));
+  console.log(machineIds);
+}
+
 /**
  * Controller class.
  */
 function Controller() {
   const users = [];
+  const machines = new Set();
 
   function broadcastUserConnected(username) {
     users.map(x => x.handlePeerConnected(username));
@@ -16,6 +23,9 @@ function Controller() {
     users.map(x => x.handlePeerDisconnected(username));
   }
 
+  /**
+   * Handles new User connection
+   */
   this.handleUserConnect = user => {
     // log message
     console.log(`User ${user.name} connected.`);
@@ -28,6 +38,9 @@ function Controller() {
     renderUsers(users);
   };
 
+  /**
+   * Handles a User disconnect.
+   */
   this.handleUserDisconnect = user => {
     // log message
     console.log(`Disconnected user ${user.name}`);
@@ -42,6 +55,28 @@ function Controller() {
     // (after deleting the target user)
     broadcastUserDisconnected(username);
   };
+
+  /**
+   * Handles new Machine connection.
+   */
+  this.handleMachineConnect = machine => {
+    console.log(`Machine ${machine.id} connected.`);
+    // registering new machine
+    machines.add(machine);
+    // logging machines
+    logMachines(machines);
+  }
+
+  /**
+   * Handles a Machine disconnect.
+   */
+  this.handleMachineDisconnect = machine => {
+    console.log(`Disconnected machine ${machine.id}.`);
+    // unregistering the machine
+    machines.delete(machine);
+    // logging machines
+    logMachines(machines);
+  }
 }
 
 module.exports = Controller;
