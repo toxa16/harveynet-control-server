@@ -1,0 +1,20 @@
+{
+  "name": "harveynet-control-server",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon ./src/index.js",
+    "start": "node ./src/index.js",
+    "test:e2e": "jest",
+    "test:e2e:once": "start-server-and-test start 3000 test:e2e",
+    "test": "npm run test:e2e:once"
+  },
+  "dependencies": {
+    "ws": "^7.2.0"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "nodemon": "^2.0.0",
+    "start-server-and-test": "^1.10.6"
+  }
+}
