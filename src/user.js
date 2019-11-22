@@ -1,3 +1,5 @@
+const ActionType = require('./action-type.enum');
+
 /**
  * User class.
  * @param {*} ws 
@@ -11,14 +13,28 @@ function User(ws, username, controller) {
    * Handles new Machine connect.
    */
   this.handleMachineConnect = machineId => {
-    ws.send(`Machine "${machineId}" connected.`);
+    const action = {
+      type: ActionType.MACHINE_STATUS_CHANGE,
+      payload: {
+        machineId,
+        isOnline: true,
+      },
+    };
+    ws.send(JSON.stringify(action));
   }
 
   /**
    * Handles a Machine disconnect.
    */
   this.handleMachineDisconnect = machineId => {
-    ws.send(`Disconnected machine "${machineId}".`);
+    const action = {
+      type: ActionType.MACHINE_STATUS_CHANGE,
+      payload: {
+        machineId,
+        isOnline: false,
+      },
+    };
+    ws.send(JSON.stringify(action));
   }
 }
 

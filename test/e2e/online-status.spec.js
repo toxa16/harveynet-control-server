@@ -1,7 +1,8 @@
 const WebSocket = require('ws');
 const { EventEmitter } = require('events');
 
-const controlServerUrl = 'ws://localhost:3000';  // env
+const port = process.env.PORT || 3000;
+const controlServerUrl = `ws://localhost:${port}`;  // env
 
 function socketSafeClose(socket) {
   if (socket.readyState === WebSocket.OPEN) {
