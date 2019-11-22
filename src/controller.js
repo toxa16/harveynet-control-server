@@ -1,5 +1,6 @@
-function renderUsers(users) {
-  const usernames = users.map(x => x.name);
+function logUsers(users) {
+  const usernames = [];
+  users.forEach(x => usernames.push(x.name));
   console.log('\tUsers:', usernames);
 }
 
@@ -13,14 +14,14 @@ function logMachines(machines) {
  * Controller class.
  */
 function Controller() {
-  const users = [];
+  const users = new Set();
   const machines = new Set();
 
   function broadcastMachineConnected(machineId) {
-    users.map(x => x.handleMachineConnect(machineId));
+    users.forEach(x => x.handleMachineConnect(machineId));
   }
   function broadcastMachineDisconnected(machineId) {
-    users.map(x => x.handleMachineDisconnect(machineId));
+    users.forEach(x => x.handleMachineDisconnect(machineId));
   }
 
   /**
@@ -30,9 +31,9 @@ function Controller() {
     // log message
     console.log(`User "${user.name}" connected.`);
     // registering new user
-    users.push(user);
+    users.add(user);
     // logging current users
-    renderUsers(users);
+    logUsers(users);
   };
 
   /**
@@ -42,10 +43,9 @@ function Controller() {
     // log message
     console.log(`Disconnected user "${user.name}"`);
     // unregistering the user
-    const index = users.indexOf(user);
-    users.splice(index, 1);
+    users.delete(user);
     // logging current users
-    renderUsers(users);
+    logUsers(users);
   };
 
   /**
