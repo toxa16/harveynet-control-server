@@ -1,6 +1,6 @@
 function logUsers(users) {
   const usernames = [];
-  users.forEach(x => usernames.push(x.name));
+  users.forEach(x => usernames.push(x.username));
   console.log('\tUsers:', usernames);
 }
 
@@ -29,7 +29,7 @@ function Controller() {
    */
   this.handleUserConnect = user => {
     // log message
-    console.log(`User "${user.name}" connected.`);
+    console.log(`User "${user.username}" connected.`);
     // registering new user
     users.add(user);
     // logging current users
@@ -41,7 +41,7 @@ function Controller() {
    */
   this.handleUserDisconnect = user => {
     // log message
-    console.log(`Disconnected user "${user.name}"`);
+    console.log(`Disconnected user "${user.username}".`);
     // unregistering the user
     users.delete(user);
     // logging current users

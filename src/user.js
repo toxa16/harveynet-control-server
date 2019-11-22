@@ -5,7 +5,7 @@
  * @param {*} controller 
  */
 function User(ws, username, controller) {
-  this.name = username;
+  this.username = username;
 
   /**
    * Handles new Machine connect.
