@@ -1,12 +1,12 @@
 function renderUsers(users) {
   const usernames = users.map(x => x.name);
-  console.log(usernames);
+  console.log('\tUsers:', usernames);
 }
 
 function logMachines(machines) {
   const machineIds = [];
   machines.forEach(x => machineIds.push(x.id));
-  console.log(machineIds);
+  console.log('\tMachines:', machineIds);
 }
 
 /**
