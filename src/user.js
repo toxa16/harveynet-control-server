@@ -14,11 +14,20 @@ function User(ws, username, controller) {
   this.handlePeerDisconnected = name => {
     ws.send(`Disconnected ${name}`);
   }
-}
 
-function renderUsers(users) {
-  const usernames = users.map(x => x.name);
-  console.log(usernames);
+  /**
+   * Handles new Machine connect.
+   */
+  this.handleMachineConnect = machineId => {
+    ws.send(`Machine "${machineId}" connected.`);
+  }
+
+  /**
+   * Handles a Machine disconnect.
+   */
+  this.handleMachineDisconnect = machineId => {
+    ws.send(`Disconnected machine "${machineId}".`);
+  }
 }
 
 module.exports = User;

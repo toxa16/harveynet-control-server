@@ -22,6 +22,12 @@ function Controller() {
   function broadcastUserDisconnected(username) {
     users.map(x => x.handlePeerDisconnected(username));
   }
+  function broadcastMachineConnected(machineId) {
+    users.map(x => x.handleMachineConnect(machineId));
+  }
+  function broadcastMachineDisconnected(machineId) {
+    users.map(x => x.handleMachineDisconnect(machineId));
+  }
 
   /**
    * Handles new User connection
@@ -65,6 +71,8 @@ function Controller() {
     machines.add(machine);
     // logging machines
     logMachines(machines);
+    // broadcasting machine connect
+    broadcastMachineConnected(machine.id);
   }
 
   /**
@@ -76,6 +84,8 @@ function Controller() {
     machines.delete(machine);
     // logging machines
     logMachines(machines);
+    // broadcasting machine disconnect
+    broadcastMachineDisconnected(machine.id);
   }
 }
 
