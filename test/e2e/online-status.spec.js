@@ -14,21 +14,21 @@ function socketSafeClose(socket) {
 }
 
 describe('Online Status', () => {
-  let controller;
+  let user;
   let machine;
 
   afterEach(() => {
-    socketSafeClose(controller);
+    socketSafeClose(user);
     socketSafeClose(machine);
   });
 
-  it('should update machine online status for a controller', async () => {
+  it('should update machine online status for a user', async () => {
     const machineId = 'machine1';
     const actionEmitter = new EventEmitter();
 
-    // controller connecting
-    controller = new WebSocket(`${controlServerUrl}/?username=alice`);
-    controller.on('message', message => {
+    // user connecting
+    user = new WebSocket(`${controlServerUrl}/?username=alice`);
+    user.on('message', message => {
       const action = JSON.parse(message);
       actionEmitter.emit('action', action);
     });
@@ -36,11 +36,11 @@ describe('Online Status', () => {
     // machine connecting
     machine = new WebSocket(`${controlServerUrl}/?machine_id=${machineId}`);
 
-    // asserting "online" status sent to controller
+    // asserting "online" status sent to user
     let action = await new Promise(resolve => {
       actionEmitter.on('action', resolve);
     });
-    // TIMEOUT HERE if machine "online" status change not sent to controller
+    // TIMEOUT HERE if machine "online" status change not sent to user
     expect(action.type).toBe('MACHINE_STATUS_CHANGE');
     expect(action.payload.isOnline).toBe(true);
     expect(action.payload.machineId).toBe(machineId);
@@ -48,11 +48,11 @@ describe('Online Status', () => {
     // machine disconnecting
     socketSafeClose(machine);
 
-    // asserting "offline" status sent to controller
+    // asserting "offline" status sent to user
     action = await new Promise(resolve => {
       actionEmitter.on('action', resolve);
     });
-    // TIMEOUT HERE if machine "offline" status change not sent to controller
+    // TIMEOUT HERE if machine "offline" status change not sent to user
     expect(action.type).toBe('MACHINE_STATUS_CHANGE');
     expect(action.payload.isOnline).toBe(false);
     expect(action.payload.machineId).toBe(machineId);
