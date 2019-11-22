@@ -1,6 +1,8 @@
 const WebSocket = require('ws');
 const { EventEmitter } = require('events');
 
+const ActionType = require('../../src/action-type.enum');
+
 const port = process.env.PORT || 3000;
 const controlServerUrl = `ws://localhost:${port}`;  // env
 
@@ -41,7 +43,7 @@ describe('Online Status', () => {
       actionEmitter.on('action', resolve);
     });
     // TIMEOUT HERE if machine "online" status change not sent to user
-    expect(action.type).toBe('MACHINE_STATUS_CHANGE');
+    expect(action.type).toBe(ActionType.MACHINE_STATUS_CHANGE);
     expect(action.payload.isOnline).toBe(true);
     expect(action.payload.machineId).toBe(machineId);
     
@@ -53,7 +55,7 @@ describe('Online Status', () => {
       actionEmitter.on('action', resolve);
     });
     // TIMEOUT HERE if machine "offline" status change not sent to user
-    expect(action.type).toBe('MACHINE_STATUS_CHANGE');
+    expect(action.type).toBe(ActionType.MACHINE_STATUS_CHANGE);
     expect(action.payload.isOnline).toBe(false);
     expect(action.payload.machineId).toBe(machineId);
   });
