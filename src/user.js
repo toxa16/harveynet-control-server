@@ -7,14 +7,6 @@
 function User(ws, username, controller) {
   this.name = username;
 
-  this.handlePeerConnected = name => {
-    ws.send(`${name} connected.`);
-  };
-
-  this.handlePeerDisconnected = name => {
-    ws.send(`Disconnected ${name}`);
-  }
-
   /**
    * Handles new Machine connect.
    */
