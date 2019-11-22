@@ -23,6 +23,9 @@ function Controller() {
   function broadcastMachineDisconnected(machineId) {
     users.forEach(x => x.handleMachineDisconnect(machineId));
   }
+  function sendCurrentMachinesToUser(user) {
+    machines.forEach(x => user.handleMachineConnect(x.id));
+  }
 
   /**
    * Handles new User connection
@@ -34,6 +37,8 @@ function Controller() {
     users.add(user);
     // logging current users
     logUsers(users);
+    // notifying the user about currently connected machines
+    sendCurrentMachinesToUser(user);
   };
 
   /**
