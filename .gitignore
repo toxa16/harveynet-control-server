@@ -3,6 +3,7 @@
 !src/
 !test/
 !.gitignore
+!.travis.yml
 !package-lock.json
 !package.json
 !README.md
