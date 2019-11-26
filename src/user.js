@@ -1,6 +1,20 @@
 const ActionType = require('./action-type.enum');
 
 /**
+ * User machines fixture.
+ */
+const machinesStub = [
+  {
+    id: 'machine2',
+    isOnline: false,
+  },
+  {
+    id: 'machine1',
+    isOnline: true,
+  },
+];
+
+/**
  * User class.
  * @param {*} ws 
  * @param {*} username 
@@ -43,6 +57,9 @@ function User(ws, username, controller) {
   this.updateMachineList = machines => {
     const action = {
       type: ActionType.MACHINE_LIST_UPDATE,
+      payload: {
+        machines: machinesStub,
+      },
     };
     ws.send(JSON.stringify(action));
   }
