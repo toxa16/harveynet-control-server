@@ -26,20 +26,29 @@ function Controller() {
   function sendCurrentMachinesToUser(user) {
     machines.forEach(x => user.handleMachineConnect(x.id));
   }
-
-  /**
-   * Handles new User connection
-   */
-  this.handleUserConnect = user => {
+  function registerUser(user) {
     // log message
     console.log(`User "${user.username}" connected.`);
     // registering new user
     users.add(user);
     // logging current users
     logUsers(users);
+  }
+
+  /**
+   * Handles new User connection.
+   */
+  this.handleUserConnect = user => {
+    registerUser(user);
     // notifying the user about currently connected machines
     sendCurrentMachinesToUser(user);
   };
+
+  this.handleUserConnectToList = user => {
+    registerUser(user);
+    // send user machines
+    user.updateMachineList();
+  }
 
   /**
    * Handles a User disconnect.

@@ -6,6 +6,10 @@ const ActionType = require('../../src/action-type.enum');
 const port = process.env.PORT || 3000;
 const controlServerUrl = `ws://localhost:${port}`;  // env
 
+/**
+ * Closes a WebSocket connection if opened.
+ * @param {*} socket 
+ */
 function socketSafeClose(socket) {
   if (socket.readyState === WebSocket.OPEN) {
     socket.close();

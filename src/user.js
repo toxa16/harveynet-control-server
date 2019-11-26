@@ -36,6 +36,16 @@ function User(ws, username, controller) {
     };
     ws.send(JSON.stringify(action));
   }
+
+  /**
+   * Sends machine list to client.
+   */
+  this.updateMachineList = machines => {
+    const action = {
+      type: ActionType.MACHINE_LIST_UPDATE,
+    };
+    ws.send(JSON.stringify(action));
+  }
 }
 
 module.exports = User;

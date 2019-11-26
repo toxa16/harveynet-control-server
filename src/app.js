@@ -11,12 +11,16 @@ function App() {
   this.controller = new Controller();
 
   this.handleSocketConnect = (ws, req) => {
-    const { query } = url.parse(req.url, true);
+    const { pathname, query } = url.parse(req.url, true);
     const { username, machine_id } = query;
 
     if (username) {
       const user = new User(ws, username, this.controller);
-      this.controller.handleUserConnect(user);
+      if (pathname === '/list') {
+        this.controller.handleUserConnectToList(user);
+      } else {
+        this.controller.handleUserConnect(user);
+      }
       ws.on('close', () => {
         this.controller.handleUserDisconnect(user);
       });
