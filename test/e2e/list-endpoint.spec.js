@@ -57,14 +57,14 @@ describe('/list Endpoint', () => {
     // machine "machine1"; must be "online"
     const machine1 = {
       id: 'machine1',
-      isOnline: true,
+      //isOnline: true,
     };
     expect(machines).toContainEqual(machine1);
-    
+
     // machine "machine2"; must be "offline"
     const machine2 = {
       id: 'machine2',
-      isOnline: false,
+      //isOnline: false,
     };
     expect(machines).toContainEqual(machine2);
   });

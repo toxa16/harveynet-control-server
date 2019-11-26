@@ -11,6 +11,25 @@ function logMachines(machines) {
 }
 
 /**
+ * User machines fixture.
+ */
+const ownershipFixture = [
+  {
+    username: 'alice',
+    machines: [
+      { id: 'machine1' },
+      { id: 'machine2' },
+    ]
+  },
+  {
+    username: 'bob',
+    machines: [
+      { id: 'machine3' },
+    ],
+  },
+];
+
+/**
  * Controller class.
  */
 function Controller() {
@@ -47,7 +66,10 @@ function Controller() {
   this.handleUserConnectToList = user => {
     registerUser(user);
     // send user machines
-    user.updateMachineList();
+    const ownership = ownershipFixture
+      .find(x => x.username === user.username);
+    const machines = ownership ? ownership.machines : [];
+    user.updateMachineList(machines);
   }
 
   /**
