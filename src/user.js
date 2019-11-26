@@ -5,12 +5,12 @@ const ActionType = require('./action-type.enum');
  */
 const machinesStub = [
   {
-    id: 'machine2',
-    isOnline: false,
-  },
-  {
     id: 'machine1',
     isOnline: true,
+  },
+  {
+    id: 'machine2',
+    isOnline: false,
   },
 ];
 
