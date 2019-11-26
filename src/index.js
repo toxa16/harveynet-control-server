@@ -4,7 +4,7 @@ const WebSocket = require('ws');
 const App = require('./app');
 
 const server = new Server((req, res) => {
-  res.end('HarveyNet - Control Server (v0.0.2)');
+  res.end('HarveyNet - Control Server (v0.0.3)');
 });
 
 const wss = new WebSocket.Server({ server });
