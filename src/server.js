@@ -35,6 +35,13 @@ server.on('upgrade', (req, socket, head) => {
     return res.end();
   }
 
+  if (username) {
+    if (req.url !== '/session') {
+      res.statusCode = 404;
+      return res.end();
+    }
+  }
+
   wss.handleUpgrade(req, socket, head, ws => {
     wss.emit('connection', ws, req);
   });

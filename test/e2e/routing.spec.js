@@ -86,7 +86,29 @@ describe('Routing', () => {
     },
   );
 
-  it.todo('should reject connection [with 404] on unknown endpoint pathname');
+  it(
+    'should reject connection [with 404] on unknown endpoint pathname' +
+      ' when the "username" cookie is set',
+    async () => {
+      const actionEmitter = new EventEmitter();
+
+      user = new WebSocket(`${controlServerUrl}/foobar`, {
+        headers: {
+          'Cookie': 'username=charlie',
+        },
+      });
+      user.on('error', (err) => {
+        actionEmitter.emit('wsError', err);
+      });
+
+      let error = null;
+      error = await new Promise(resolve => {
+        actionEmitter.on('wsError', resolve);
+      });
+      // TIMEOUT if no ws 'error' event fired
+      expect(error).toBeTruthy();
+    },
+  );
 
   it(
     'should accept connection to the "/session" when the "username" cookie is set',
