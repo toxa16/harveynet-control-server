@@ -6,8 +6,9 @@
     "dev": "nodemon ./src/index.js",
     "start": "node ./src/index.js",
     "test:e2e": "jest --watch",
-    "test:e2e:once": "start-server-and-test start 3000 test:e2e",
-    "test": "npm run test:e2e:once"
+    "test:e2e:once": "jest",
+    "test:e2e:server": "start-server-and-test start 3000 test:e2e:once",
+    "test": "npm run test:e2e:server"
   },
   "dependencies": {
     "cookie": "^0.4.0",
