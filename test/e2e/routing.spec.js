@@ -26,45 +26,28 @@ describe('Routing', () => {
     socketSafeClose(machine);
   });
 
-  it.skip('should allow connection when the "username" cookie is set', async () => {
-    const actionEmitter = new EventEmitter();
+  it(
+    'should accept connection when the "machine_id" cookie is set',
+    async () => {
+      const actionEmitter = new EventEmitter();
 
-    user = new WebSocket(`${controlServerUrl}`, {
-      headers: {
-        'Cookie': 'username=charlie',
-      },
-    });
-    user.on('open', () => {
-      actionEmitter.emit('open', true);
-    });
+      user = new WebSocket(`${controlServerUrl}`, {
+        headers: {
+          'Cookie': 'machine_id=machine1',
+        },
+      });
+      user.on('open', () => {
+        actionEmitter.emit('open', true);
+      });
 
-    let isOpened = false;
-    isOpened = await new Promise(resolve => {
-      actionEmitter.on('open', resolve);
-    });
-    // TIMEOUT if not connecting
-    expect(isOpened).toBe(true);
-  });
-
-  it('should accept connection when the "machine_id" cookie is set', async () => {
-    const actionEmitter = new EventEmitter();
-
-    user = new WebSocket(`${controlServerUrl}`, {
-      headers: {
-        'Cookie': 'machine_id=machine1',
-      },
-    });
-    user.on('open', () => {
-      actionEmitter.emit('open', true);
-    });
-
-    let isOpened = false;
-    isOpened = await new Promise(resolve => {
-      actionEmitter.on('open', resolve);
-    });
-    // TIMEOUT if not connecting
-    expect(isOpened).toBe(true);
-  });
+      let isOpened = false;
+      isOpened = await new Promise(resolve => {
+        actionEmitter.on('open', resolve);
+      });
+      // TIMEOUT if not connecting
+      expect(isOpened).toBe(true);
+    }
+  );
 
   it(
     'should reject connection [with 401] when' +
