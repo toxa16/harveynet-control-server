@@ -28,7 +28,10 @@ describe('/list Endpoint', () => {
     socketSafeClose(machine);
   });
 
-  it('should return user machines with their online statuses', async () => {;
+  //
+  // REDUNDANT
+  // 
+  it.skip('should return user machines with their online statuses', async () => {;
     const actionEmitter = new EventEmitter();
 
     // machine "machine1" connecting

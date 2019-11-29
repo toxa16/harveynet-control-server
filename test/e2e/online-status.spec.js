@@ -28,7 +28,10 @@ describe('Online Status', () => {
     socketSafeClose(machine);
   });
 
-  it('should update machine online status for a user', async () => {
+  //
+  // REDUNDANT
+  //
+  it.skip('should update machine online status for a user', async () => {
     const machineId = 'machine1';
     const actionEmitter = new EventEmitter();
 
@@ -64,7 +67,10 @@ describe('Online Status', () => {
     expect(action.payload.machineId).toBe(machineId);
   });
 
-  it(
+  //
+  // OBSOLETE
+  //
+  it.skip(
     'should notify newly connected user about currently connected machines',
     async () => {
       const machineId = 'machine1';

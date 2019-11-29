@@ -1,17 +1,4 @@
-const { Server } = require('http');
-const WebSocket = require('ws');
-
-const App = require('./app');
-
-const server = new Server((req, res) => {
-  res.end('HarveyNet - Control Server (v0.0.3)');
-});
-
-const wss = new WebSocket.Server({ server });
-
-const app = new App();
-
-wss.on('connection', app.handleSocketConnect);
+const server = require('./server');
 
 const port = process.env.PORT || 3000;
 server.listen(port, () => {
