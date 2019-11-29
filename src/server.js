@@ -1,4 +1,5 @@
-const { Server } = require('http');
+const { Server, ServerResponse } = require('http');
+const cookie = require('cookie');
 
 const wss = require('./wss');
 
@@ -7,9 +8,21 @@ const server = new Server((req, res) => {
 });
 
 server.on('upgrade', (req, socket, head) => {
-  wss.handleUpgrade(req, socket, head, ws => {
-    wss.emit('connection', ws, req);
-  });
+  const res = new ServerResponse(req);
+  res.assignSocket(socket);
+
+  const cookieHeader = req.headers.cookie;
+  const cookies = cookie.parse(cookieHeader);
+  const { username, machine_id } = cookies;
+
+  if (!username && !machine_id) {
+    res.statusCode = 401;
+    res.end();
+  } else {
+    wss.handleUpgrade(req, socket, head, ws => {
+      wss.emit('connection', ws, req);
+    });
+  }
 });
 
 module.exports = server;
